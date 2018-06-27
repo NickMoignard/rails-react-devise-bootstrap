@@ -61,3 +61,8 @@ folder, with a Router in the `components/AppRouter.js` file.
 
 Also you will find all the Devise views re-written in React in the
 `app/javascript/views/devise` folder.
+
+# TODO
+
+ - [ ] Find a bot to update project's dependencies
+ - [ ] Add automated tests
