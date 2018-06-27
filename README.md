@@ -1,7 +1,11 @@
 # Rails React Devise Bootstrap
 
-The aim of this repository is provide a Ruby On Rails skeleton app, including
-Devise and Bootstrap, which should allow you to boostrap a new app quickly.
+The aim of this repository is provide a Ruby On Rails and [React](https://reactjs.org)
+skeleton app, including [Devise](https://github.com/plataformatec/devise) and
+[Bootstrap](http://getbootstrap.com), which should allow you to boostrap a new
+app quickly.
+
+All the Devise views have been re-written in React.
 
 # Usage
 
@@ -42,5 +46,18 @@ Here is the project stack :
 
  * Rails 5 (5.1.5)
  * React 16 (16.2.0) via webpacker
+ * Redux (5.0.7)
  * Devise 4 (4.4.3)
  * Boostrap 4 (4.0.0)
+
+# Architecture
+
+This app using the standard Rails way to implement React.
+
+The entrypoint to the React application is at `app/javascript/packs/application.js`.
+
+Then you'll find a standard React redux structure in the `app/javascript/`
+folder, with a Router in the `components/AppRouter.js` file.
+
+Also you will find all the Devise views re-written in React in the
+`app/javascript/views/devise` folder.
