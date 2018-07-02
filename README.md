@@ -7,6 +7,8 @@ app quickly.
 
 All the Devise views have been re-written in React.
 
+![rrdb-login-page](/uploads/2cfb66718d2c77afdf9db5fa385d5934/rrdb-login-page.png)
+
 # Usage
 
 Fork it, rename it, build your app. 💪
