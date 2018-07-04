@@ -10,6 +10,7 @@ services:
     environment:
       - MAILHOG=true
       - RAILS_ENV=development
+      - SELENIUM_PORT=4444
       - SERVER_PORT=3000
       - WEBPACKER_DEV_SERVER_HOST=webpack
     image: zedtux/rails5-react
@@ -27,6 +28,16 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+  selenium:
+    links:
+      - app
+    image: selenium/standalone-chrome:3.11.0-antimony
+    # For Debug (And uncomment the `ports` node to connect with VNC)
+    # image: selenium/standalone-chrome-debug:3.11.0-antimony
+    # ports:
+    #   - "5900:5900"
+    volumes:
+      - /dev/shm:/dev/shm
   webpack:
     command: bin/webpack-dev-server
     environment:

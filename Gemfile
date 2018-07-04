@@ -19,3 +19,14 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+group :test do
+  gem 'capybara', '~> 3.3.1'
+  gem 'capybara-screenshot', '~> 1.0.21'
+  gem 'cucumber-rails', '~> 1.6.0', require: false
+  gem 'database_cleaner', '~> 1.7.0'
+  gem 'email_spec', '~> 2.2.0'
+  gem 'ffaker', '~> 2.9.0'
+  gem 'rspec-expectations', '~> 3.7.0'
+  gem 'selenium-webdriver', '~> 3.13.0'
+end
