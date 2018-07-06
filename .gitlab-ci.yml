@@ -27,7 +27,6 @@ stages:
   - build
   - test
   - deploy
-  - clean
 
 build:
   image: docker:stable-git
@@ -54,11 +53,6 @@ deploy:
     - fetch_docker_image
     - tag_as_latest_and_push
   stage: deploy
-
-clean:
-  image: docker:stable-git
-  script:
-
 
 .auto_devops: &auto_devops |
   function docker_login() {
