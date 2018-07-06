@@ -26,6 +26,8 @@ before_script:
 stages:
   - build
   - test
+  - deploy
+  - clean
 
 build:
   image: docker:stable-git
@@ -46,13 +48,29 @@ test:
     SELENIUM_REMOTE_URL: http://gitlab-selenium-server:4545/wd/hub
     GITLAB_TARGET_SELENIUM_REMOTE_URL: http://gitlab-selenium-server:4545/wd/hub
 
+deploy:
+  image: docker:stable-git
+  script:
+    - fetch_docker_image
+    - tag_as_latest_and_push
+  stage: deploy
+
+clean:
+  image: docker:stable-git
+  script:
+
+
 .auto_devops: &auto_devops |
-  function build() {
+  function docker_login() {
     if [[ -n "$CI_REGISTRY_USER" ]]; then
       echo "Logging to GitLab Container Registry with CI credentials..."
       docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
       echo ""
     fi
+  }
+
+  function build() {
+    docker_login()
 
     echo "Trying to fetch latest Docker image ..."
     docker pull $CONTAINER_IMAGE:latest || true
@@ -66,12 +84,22 @@ test:
   }
 
   function fetch_docker_image() {
+    docker_login()
+
     echo "Fetching Docker image $CONTAINER_IMAGE:$CI_BUILD_REF from $CI_REGISTRY ..."
     docker pull "$CONTAINER_IMAGE:$CI_BUILD_REF"
   }
 
   function bundle_exec_rake() {
     docker run --rm -it "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
+  }
+
+  function tag_as_latest_and_push() {
+    echo "Tagging Docker image $CI_BUILD_REF as latest ..."
+    docker tag "$CONTAINER_IMAGE:$CI_BUILD_REF" "$CONTAINER_IMAGE:latest"
+
+    echo "Pushing new verison of the latest Docker image ..."
+    docker push "$CONTAINER_IMAGE:latest"
   }
 
 before_script:
