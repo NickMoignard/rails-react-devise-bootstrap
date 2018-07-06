@@ -40,7 +40,8 @@ test:
     - env | sort
     - docker_login
     - fetch_docker_image
-    - docker ps
+    - env | sort
+    - show_docker_env
     - bundle_exec_rake
   stage: test
 
@@ -76,6 +77,10 @@ deploy:
   function fetch_docker_image() {
     echo "Fetching Docker image $CONTAINER_IMAGE:$CI_BUILD_REF from $CI_REGISTRY ..."
     docker pull "$CONTAINER_IMAGE:$CI_BUILD_REF"
+  }
+
+  function show_docker_env() {
+    docker run --rm "$CONTAINER_IMAGE:$CI_BUILD_REF" env | sort
   }
 
   function bundle_exec_rake() {
