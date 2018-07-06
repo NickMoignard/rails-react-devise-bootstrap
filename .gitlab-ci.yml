@@ -40,6 +40,7 @@ test:
     - show_docker_env
     - boot_selenium
     - fetch_docker_image
+    - docker ps -a
     - bundle_exec_rake
   stage: test
 
