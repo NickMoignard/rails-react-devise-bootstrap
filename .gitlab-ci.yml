@@ -35,6 +35,7 @@ build:
 test:
   image: docker:stable-git
   script:
+    - env | sort
     - docker_login
     - fetch_docker_image
     - bundle_exec_rake
@@ -44,7 +45,7 @@ test:
       alias: gitlab-selenium-server
   stage: test
   variables:
-    SELENIUM_REMOTE_URL: http://gitlab-selenium-server:4545/wd/hub
+    SELENIUM_URL: http://gitlab-selenium-server:4545/wd/hub
     GITLAB_TARGET_SELENIUM_REMOTE_URL: http://gitlab-selenium-server:4545/wd/hub
 
 deploy:
