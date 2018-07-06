@@ -20,9 +20,6 @@ variables:
 services:
   - docker:dind
 
-before_script:
-  - docker info
-
 stages:
   - build
   - test
@@ -60,7 +57,7 @@ deploy:
 .auto_devops: &auto_devops |
   function docker_login() {
     if [[ -n "$CI_REGISTRY_USER" ]]; then
-      echo "Logging to GitLab Container Registry with CI credentials..."
+      echo "Logging to GitLab Container Registry with CI credentials... (CI_REGISTRY_USER=$CI_REGISTRY_USER, CI_REGISTRY=$CI_REGISTRY)"
       docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
       echo ""
     fi
