@@ -39,6 +39,7 @@ test:
     - fetch_docker_image
     - bundle_exec_rake
   services:
+    - docker:dind
     - name: registry.gitlab.com/gitlab-org/gitlab-selenium-server:master
       alias: gitlab-selenium-server
   stage: test
