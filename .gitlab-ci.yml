@@ -16,9 +16,11 @@ variables:
   # improved performance.
   DOCKER_DRIVER: overlay2
   CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
+  SELENIUM_URL: "http://selenium__standalone-chrome:4444/wd/hub"
 
 services:
   - docker:dind
+  - selenium/standalone-chrome:latest
 
 stages:
   - build
@@ -40,14 +42,7 @@ test:
     - fetch_docker_image
     - docker ps
     - bundle_exec_rake
-  services:
-    - docker:dind
-    - name: registry.gitlab.com/gitlab-org/gitlab-selenium-server:master
-      alias: gitlab-selenium-server
   stage: test
-  variables:
-    SELENIUM_REMOTE_URL: http://gitlab-selenium-server:4545/wd/hub
-    GITLAB_TARGET_SELENIUM_REMOTE_URL: http://gitlab-selenium-server:4545/wd/hub
 
 deploy:
   image: docker:stable-git
@@ -85,7 +80,7 @@ deploy:
 
   function bundle_exec_rake() {
     echo "Running docker run --rm -it $CONTAINER_IMAGE:$CI_BUILD_REF bundle exec rake ..."
-    docker run --rm --env SELENIUM_URL="$SELENIUM_REMOTE_URL" --link gitlab-selenium-server "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
+    docker run --rm "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
   }
 
   function tag_as_latest_and_push() {
