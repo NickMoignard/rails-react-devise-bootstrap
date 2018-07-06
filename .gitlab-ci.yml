@@ -16,11 +16,9 @@ variables:
   # improved performance.
   DOCKER_DRIVER: overlay2
   CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
-  SELENIUM_URL: "http://selenium__standalone-chrome:4444/wd/hub"
 
 services:
   - docker:dind
-  - selenium/standalone-chrome:latest
 
 stages:
   - build
@@ -39,9 +37,9 @@ test:
   script:
     - env | sort
     - docker_login
-    - fetch_docker_image
-    - env | sort
     - show_docker_env
+    - boot_selenium
+    - fetch_docker_image
     - bundle_exec_rake
   stage: test
 
@@ -74,18 +72,22 @@ deploy:
     echo ""
   }
 
+  function boot_selenium() {
+    docker run --name selenium --detach --rm selenium/standalone-chrome:3.11.0-antimony
+  }
+
   function fetch_docker_image() {
     echo "Fetching Docker image $CONTAINER_IMAGE:$CI_BUILD_REF from $CI_REGISTRY ..."
     docker pull "$CONTAINER_IMAGE:$CI_BUILD_REF"
   }
 
   function show_docker_env() {
-    docker run --rm --env SELENIUM_URL="$SELENIUM_URL" "$CONTAINER_IMAGE:$CI_BUILD_REF" env | sort
+    docker run --rm "$CONTAINER_IMAGE:$CI_BUILD_REF" env | sort
   }
 
   function bundle_exec_rake() {
     echo "Running docker run --rm -it $CONTAINER_IMAGE:$CI_BUILD_REF bundle exec rake ..."
-    docker run --rm --env SELENIUM_URL="$SELENIUM_URL" "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
+    docker run --rm --link selenium --env SELENIUM_HOST=selenium "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
   }
 
   function tag_as_latest_and_push() {
