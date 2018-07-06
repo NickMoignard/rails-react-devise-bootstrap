@@ -15,6 +15,7 @@ variables:
   # When using dind, it's wise to use the overlayfs driver for
   # improved performance.
   DOCKER_DRIVER: overlay2
+  CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
 
 services:
   - docker:dind
@@ -33,12 +34,12 @@ build:
   stage: build
 
 test:
-  image: gliderlabs/herokuish:latest
+  image: docker:stable-git
   script:
     - fetch_docker_image
-    - docker run --rm -it "$CI_DOCKER_IMAGE_NAME" bundle exec rake
+    - bundle_exec_rake
   services:
-    - name: registry.gitlab.com/gitlab-org/gitlab-selenium-server:latest
+    - name: registry.gitlab.com/gitlab-org/gitlab-selenium-server:master
       alias: gitlab-selenium-server
   stage: test
   variables:
@@ -46,10 +47,6 @@ test:
     GITLAB_TARGET_SELENIUM_REMOTE_URL: http://gitlab-selenium-server:4545/wd/hub
 
 .auto_devops: &auto_devops |
-  export CI_APPLICATION_REPOSITORY=$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
-  export CI_APPLICATION_TAG=$CI_COMMIT_SHA
-  export CI_DOCKER_IMAGE_NAME="$CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG"
-
   function build() {
     if [[ -n "$CI_REGISTRY_USER" ]]; then
       echo "Logging to GitLab Container Registry with CI credentials..."
@@ -57,17 +54,24 @@ test:
       echo ""
     fi
 
+    echo "Trying to fetch latest Docker image ..."
+    docker pull $CONTAINER_IMAGE:latest || true
+
     echo "Building Dockerfile-based application..."
-    docker build -t "$CI_DOCKER_IMAGE_NAME" .
+    docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_BUILD_REF .
 
     echo "Pushing to GitLab Container Registry..."
-    docker push "$CI_DOCKER_IMAGE_NAME"
+    docker push "$CONTAINER_IMAGE:$CI_BUILD_REF"
     echo ""
   }
 
   function fetch_docker_image() {
-    echo "Fetching Docker image $CI_DOCKER_IMAGE_NAME from $CI_REGISTRY ..."
-    docker pull "$CI_DOCKER_IMAGE_NAME"
+    echo "Fetching Docker image $CONTAINER_IMAGE:$CI_BUILD_REF from $CI_REGISTRY ..."
+    docker pull "$CONTAINER_IMAGE:$CI_BUILD_REF"
+  }
+
+  function bundle_exec_rake() {
+    docker run --rm -it "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
   }
 
 before_script:
