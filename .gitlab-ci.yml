@@ -80,7 +80,7 @@ deploy:
   }
 
   function show_docker_env() {
-    docker run --rm "$CONTAINER_IMAGE:$CI_BUILD_REF" --env SELENIUM_URL="$SELENIUM_URL" env | sort
+    docker run --rm --env SELENIUM_URL="$SELENIUM_URL" "$CONTAINER_IMAGE:$CI_BUILD_REF" env | sort
   }
 
   function bundle_exec_rake() {
