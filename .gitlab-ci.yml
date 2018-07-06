@@ -1,0 +1,71 @@
+image: alpine:latest
+
+variables:
+  # When using dind service we need to instruct docker, to talk with the
+  # daemon started inside of the service. The daemon is available with
+  # a network connection instead of the default /var/run/docker.sock socket.
+  #
+  # The 'docker' hostname is the alias of the service container as described at
+  # https://docs.gitlab.com/ee/ci/docker/using_docker_images.html#accessing-the-services
+  #
+  # Note that if you're using Kubernetes executor, the variable should be set to
+  # tcp://localhost:2375 because of how Kubernetes executor connects services
+  # to the job container
+  DOCKER_HOST: tcp://docker:2375/
+  # When using dind, it's wise to use the overlayfs driver for
+  # improved performance.
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:dind
+
+before_script:
+  - docker info
+
+stages:
+  - build
+  - test
+
+build:
+  image: docker:stable-git
+  script:
+    - build
+  stage: build
+
+test:
+  image: gliderlabs/herokuish:latest
+  script:
+    - fetch_docker_image
+    - docker run --rm -it "$CI_DOCKER_IMAGE_NAME" bundle exec rake
+  services:
+    - name: registry.gitlab.com/gitlab-org/gitlab-selenium-server:latest
+      alias: gitlab-selenium-server
+  stage: test
+  variables:
+    SELENIUM_REMOTE_URL: http://gitlab-selenium-server:4545/wd/hub
+    GITLAB_TARGET_SELENIUM_REMOTE_URL: http://gitlab-selenium-server:4545/wd/hub
+
+.auto_devops: &auto_devops |
+  export CI_APPLICATION_REPOSITORY=$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
+  export CI_APPLICATION_TAG=$CI_COMMIT_SHA
+  export CI_DOCKER_IMAGE_NAME="$CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG"
+
+  function build() {
+    if [[ -n "$CI_REGISTRY_USER" ]]; then
+      echo "Logging to GitLab Container Registry with CI credentials..."
+      docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+      echo ""
+    fi
+
+    echo "Building Dockerfile-based application..."
+    docker build -t "$CI_DOCKER_IMAGE_NAME" .
+
+    echo "Pushing to GitLab Container Registry..."
+    docker push "$CI_DOCKER_IMAGE_NAME"
+    echo ""
+  }
+
+  function fetch_docker_image() {
+    echo "Fetching Docker image $CI_DOCKER_IMAGE_NAME from $CI_REGISTRY ..."
+    docker pull "$CI_DOCKER_IMAGE_NAME"
+  }
