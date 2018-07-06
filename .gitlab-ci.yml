@@ -82,7 +82,8 @@ deploy:
   }
 
   function bundle_exec_rake() {
-    docker run --rm -it "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
+    echo "Running docker run --rm -it $CONTAINER_IMAGE:$CI_BUILD_REF bundle exec rake ..."
+    docker run --rm "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
   }
 
   function tag_as_latest_and_push() {
