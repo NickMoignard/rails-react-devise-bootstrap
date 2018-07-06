@@ -45,10 +45,13 @@ Capybara.register_driver :chrome do |app|
   client = Selenium::WebDriver::Remote::Http::Default.new
   client.read_timeout = 120
 
+  selenium_url = ENV['SELENIUM_REMOTE_URL'] || "http://#{ENV['SELENIUM_HOST'] || 'selenium'}:#{ENV['SELENIUM_PORT'] || 4444}/wd/hub"
+  puts "Using the Selenium URL #{selenium_url.inspect} ..."
+
   Capybara::Selenium::Driver.new(
     app,
     browser: :remote,
-    url: ENV['SELENIUM_REMOTE_URL'] || "http://#{ENV['SELENIUM_HOST'] || 'selenium'}:#{ENV['SELENIUM_PORT'] || 4444}/wd/hub",
+    url: selenium_url,
     desired_capabilities: capabilities,
     http_client: client
   )
