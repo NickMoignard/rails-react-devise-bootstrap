@@ -38,6 +38,7 @@ test:
     - env | sort
     - docker_login
     - fetch_docker_image
+    - docker ps
     - bundle_exec_rake
   services:
     - docker:dind
