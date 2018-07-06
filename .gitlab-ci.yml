@@ -31,12 +31,14 @@ stages:
 build:
   image: docker:stable-git
   script:
+    - docker_login
     - build
   stage: build
 
 test:
   image: docker:stable-git
   script:
+    - docker_login
     - fetch_docker_image
     - bundle_exec_rake
   services:
@@ -50,6 +52,7 @@ test:
 deploy:
   image: docker:stable-git
   script:
+    - docker_login
     - fetch_docker_image
     - tag_as_latest_and_push
   stage: deploy
@@ -64,8 +67,6 @@ deploy:
   }
 
   function build() {
-    docker_login()
-
     echo "Trying to fetch latest Docker image ..."
     docker pull $CONTAINER_IMAGE:latest || true
 
@@ -78,8 +79,6 @@ deploy:
   }
 
   function fetch_docker_image() {
-    docker_login()
-
     echo "Fetching Docker image $CONTAINER_IMAGE:$CI_BUILD_REF from $CI_REGISTRY ..."
     docker pull "$CONTAINER_IMAGE:$CI_BUILD_REF"
   }
