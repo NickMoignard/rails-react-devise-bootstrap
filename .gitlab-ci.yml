@@ -69,3 +69,6 @@ test:
     echo "Fetching Docker image $CI_DOCKER_IMAGE_NAME from $CI_REGISTRY ..."
     docker pull "$CI_DOCKER_IMAGE_NAME"
   }
+
+before_script:
+  - *auto_devops
