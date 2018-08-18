@@ -104,7 +104,7 @@ deploy:
     docker run --rm --link selenium --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" cat /etc/hosts
 
     echo "Curling selenium ..."
-    docker run --rm --user root --link selenium --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bash -c "apt-get update && apt-get install -y curl && curl http://selenium:4444/wd/hub"
+    docker run --rm --user root --link selenium --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bash -c "apt-get update && apt-get install -y curl && curl -vv http://selenium:4444/wd/hub"
 
     echo "Running docker run --rm --link selenium --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake ..."
     docker run --rm --link selenium --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
