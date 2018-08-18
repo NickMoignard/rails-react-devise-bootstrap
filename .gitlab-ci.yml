@@ -36,6 +36,7 @@ test:
   image: docker:stable-git
   script:
     - env | sort
+    - apk add curl
     - docker_login
     - show_docker_env
     - boot_selenium
