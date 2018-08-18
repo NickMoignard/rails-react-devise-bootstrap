@@ -41,9 +41,7 @@ test:
     - create_rrdb_network
     - boot_selenium
     - fetch_docker_image
-    - docker ps -a
     - wait_selnium_to_be_ready
-    - docker ps -a
     - bundle_exec_rake
   stage: test
 
@@ -65,18 +63,20 @@ deploy:
   }
 
   function build() {
-    echo "Trying to fetch latest Docker image ..."
+    echo "docker pull $CONTAINER_IMAGE:latest || true ... (Trying to fetch latest Docker image)"
     docker pull $CONTAINER_IMAGE:latest || true
 
-    echo "Building Dockerfile-based application..."
+    echo "docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_BUILD_REF . ... (Building Dockerfile-based application)"
     docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_BUILD_REF .
 
-    echo "Pushing to GitLab Container Registry..."
+    echo "docker push $CONTAINER_IMAGE:$CI_BUILD_REF ... (Pushing to GitLab Container Registry)"
     docker push "$CONTAINER_IMAGE:$CI_BUILD_REF"
+
     echo ""
   }
 
   function boot_selenium() {
+    echo "docker run --rm --network rrdb --name selenium --detach selenium/standalone-chrome:3.11.0-antimony ... (Booting Selenium)"
     docker run --rm --network rrdb --name selenium --detach selenium/standalone-chrome:3.11.0-antimony
   }
 
@@ -90,30 +90,30 @@ deploy:
   }
 
   function fetch_docker_image() {
-    echo "Fetching Docker image $CONTAINER_IMAGE:$CI_BUILD_REF from $CI_REGISTRY ..."
+    echo "docker pull $CONTAINER_IMAGE:$CI_BUILD_REF ... (Fetching Docker image $CONTAINER_IMAGE:$CI_BUILD_REF from $CI_REGISTRY)"
     docker pull "$CONTAINER_IMAGE:$CI_BUILD_REF"
   }
 
   function show_docker_env() {
+    echo "docker run --rm "$CONTAINER_IMAGE:$CI_BUILD_REF" env | sort ... (Show Docker environment)"
     docker run --rm "$CONTAINER_IMAGE:$CI_BUILD_REF" env | sort
   }
 
   function create_rrdb_network() {
-    echo "Creating rrdb network ..."
+    echo "docker network create rrdb ... (Creating rrdb network)"
     docker network create rrdb
   }
 
   function bundle_exec_rake() {
-
-    echo "Running docker run --rm --network rrdb --name app --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake ..."
+    echo "docker run --rm --network rrdb --name app --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake ... (Running automated tests)"
     docker run --rm --network rrdb --name app --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
   }
 
   function tag_as_latest_and_push() {
-    echo "Tagging Docker image $CI_BUILD_REF as latest ..."
+    echo "docker tag $CONTAINER_IMAGE:$CI_BUILD_REF $CONTAINER_IMAGE:latest ... (Tagging Docker image $CI_BUILD_REF as latest) ..."
     docker tag "$CONTAINER_IMAGE:$CI_BUILD_REF" "$CONTAINER_IMAGE:latest"
 
-    echo "Pushing new verison of the latest Docker image ..."
+    echo "docker push $CONTAINER_IMAGE:latest ... (Pushing new verison of the latest Docker image)"
     docker push "$CONTAINER_IMAGE:latest"
   }
 
