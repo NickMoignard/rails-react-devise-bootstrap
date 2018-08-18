@@ -14,6 +14,8 @@ services:
       - SERVER_PORT=3000
       - WEBPACKER_DEV_SERVER_HOST=webpack
     image: zedtux/rails5-react
+    networks:
+      - rrdb
     ports:
       - "3000:3000"
     volumes_from:
@@ -29,9 +31,9 @@ services:
       - "1025:1025"
       - "8025:8025"
   selenium:
-    links:
-      - app
     image: selenium/standalone-chrome:3.11.0-antimony
+    networks:
+      - rrdb
     # For Debug (And uncomment the `ports` node to connect with VNC)
     # image: selenium/standalone-chrome-debug:3.11.0-antimony
     # ports:
@@ -47,3 +49,6 @@ services:
       - "3035:3035"
     volumes_from:
       - bundle
+
+networks:
+  rrdb:
