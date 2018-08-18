@@ -99,9 +99,10 @@ deploy:
   }
 
   function bundle_exec_rake() {
+    cat /etc/resolv.conf
+    cat /etc/hosts
     echo "Debugging Selenium connection ..."
-    curl -vv http://selenium:4444 || exit 0
-    curl -vv http://localhost:4444 || exit 0
+    curl -vv http://selenium:4444 || curl -vv http://localhost:4444
     echo "Running docker run --rm --link selenium --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake ..."
     docker run --rm --link selenium --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
   }
