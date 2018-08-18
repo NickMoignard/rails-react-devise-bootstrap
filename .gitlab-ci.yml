@@ -36,7 +36,6 @@ test:
   image: docker:stable-git
   script:
     - env | sort
-    - apk add curl
     - docker_login
     - show_docker_env
     - boot_selenium
@@ -44,6 +43,7 @@ test:
     - docker ps -a
     - wait_selnium_to_be_ready
     - docker ps -a
+    - apk add curl
     - bundle_exec_rake
   stage: test
 
@@ -100,7 +100,8 @@ deploy:
 
   function bundle_exec_rake() {
     echo "Debugging Selenium connection ..."
-    curl -vv http://selenium:4444
+    curl -vv http://selenium:4444 || exit 0
+    curl -vv http://localhost:4444 || exit 0
     echo "Running docker run --rm --link selenium --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake ..."
     docker run --rm --link selenium --env SELENIUM_PORT=4444 "$CONTAINER_IMAGE:$CI_BUILD_REF" bundle exec rake
   }
