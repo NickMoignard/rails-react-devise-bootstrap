@@ -12,7 +12,7 @@ gem 'rails', '~> 5.1.5'
 gem 'sass-rails', '~> 5.0'
 gem 'sqlite3', '~> 1.3.13'
 gem 'uglifier', '>= 4.1.19'
-gem 'webpacker', '~> 3.4.3'
+gem 'webpacker', '~> 3.5.0'
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
