@@ -11,7 +11,7 @@ gem 'puma', '~> 3.12.0'
 gem 'rails', '~> 5.1.5'
 gem 'sass-rails', '~> 5.0'
 gem 'sqlite3', '~> 1.3.13'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 4.1.19'
 gem 'webpacker', '~> 3.4.3'
 
 group :development do
