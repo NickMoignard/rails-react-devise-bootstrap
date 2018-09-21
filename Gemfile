@@ -26,7 +26,7 @@ group :test do
   gem 'cucumber-rails', '~> 1.6.0', require: false
   gem 'database_cleaner', '~> 1.7.0'
   gem 'email_spec', '~> 2.2.0'
-  gem 'ffaker', '~> 2.9.0'
+  gem 'ffaker', '~> 2.10.0'
   gem 'rspec-expectations', '~> 3.7.0'
   gem 'selenium-webdriver', '~> 3.13.1'
 end
