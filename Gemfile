@@ -22,7 +22,7 @@ end
 
 group :test do
   gem 'capybara', '~> 3.9.0'
-  gem 'capybara-screenshot', '~> 1.0.21'
+  gem 'capybara-screenshot', '~> 1.0.22'
   gem 'cucumber-rails', '~> 1.6.0', require: false
   gem 'database_cleaner', '~> 1.7.0'
   gem 'email_spec', '~> 2.2.0'
