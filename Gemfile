@@ -28,5 +28,5 @@ group :test do
   gem 'email_spec', '~> 2.2.0'
   gem 'ffaker', '~> 2.11.0'
   gem 'rspec-expectations', '~> 3.8.3'
-  gem 'selenium-webdriver', '~> 3.141.0'
+  gem 'selenium-webdriver', '~> 3.142.0'
 end
