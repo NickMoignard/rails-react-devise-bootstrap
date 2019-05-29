@@ -21,7 +21,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '~> 3.9.0'
+  gem 'capybara', '~> 3.10.0'
   gem 'capybara-screenshot', '~> 1.0.22'
   gem 'cucumber-rails', '~> 1.7.0', require: false
   gem 'database_cleaner', '~> 1.7.0'
