@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'devise', '~> 4.6.2'
-gem 'jwt', '~> 2.2.0'
+gem 'jwt', '~> 2.2.1'
 gem 'puma', '~> 3.12.1'
 gem 'rails', '~> 5.2.1.1'
 gem 'sass-rails', '~> 5.0'
