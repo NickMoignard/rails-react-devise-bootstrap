@@ -27,6 +27,6 @@ group :test do
   gem 'database_cleaner', '~> 1.7.0'
   gem 'email_spec', '~> 2.2.0'
   gem 'ffaker', '~> 2.10.0'
-  gem 'rspec-expectations', '~> 3.8.0'
+  gem 'rspec-expectations', '~> 3.8.3'
   gem 'selenium-webdriver', '~> 3.141.0'
 end
