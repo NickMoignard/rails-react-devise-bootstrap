@@ -13,11 +13,12 @@ All the Devise views have been re-written in React.
 
 Fork it, rename it, build your app. 💪
 
-1. Click the 'Fork' button
+1. Fork this repo and rename it
 2. Checkout the created repo on your machine and cd to the project's directory
-3. Add an `upstream` remote to this repo : `git add remote upstream git@gitlab.com:zedtux/rails5-react-devise-bootstrap.git`
-4. Rename the app from `config/application.rb` and change the title
-   from `app/views/layouts/application.html.erb`
+3. Add an `upstream` remote to this repo : `git remote add upstream git@gitlab.com:zedtux/rails5-react-devise-bootstrap.git` (This will allow you to get updates from this repo)
+4. Rename the app at those different places :
+  - Find and replace `Rails5ReactDeviseBootstrap` with your app name in CamelCase
+  - Find and replace `rails5-react-devise-bootstrap` without your app name in dash-case
 5. Use your local Ruby, Bundler and Yarn or the Dockerfile in order to prepare
    your development environment
 6. Start the web server and go to http://localhost:3000/
