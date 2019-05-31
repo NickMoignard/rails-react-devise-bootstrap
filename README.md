@@ -56,10 +56,10 @@ Run your tests and if all is fine, merge it to `master` 🎉
 Here is the project stack :
 
  * Rails 5 (5.2.3)
- * React 16 (16.2.0) via webpacker
- * Redux (5.0.7)
+ * React 16 (16.8.6) via webpacker
+ * Redux (4.0.1)
  * Devise 4 (4.6.2)
- * Boostrap 4 (4.0.0)
+ * Boostrap 4 (4.3.1)
 
 # Architecture
 
