@@ -24,6 +24,13 @@ Fork it, rename it, build your app. 💪
 6. Migrate the database: `bundle exec rails db:migrate`
 7. Start the web server and go to http://localhost:3000/
 
+## Docker vs Non-Docker
+
+This repository is configured to be used with Docker, but it is of course
+possible to use it _the old way_ following those instructions :
+
+1. Replaces the webpacker `host` and `public` **webpack** to **localhost** in the file `config/webpacker.yml`
+
 ## Why should I fork it ?
 
 With this project forked, and a git remote to this project, you will be able to
@@ -51,7 +58,7 @@ Here is the project stack :
  * Rails 5 (5.2.3)
  * React 16 (16.2.0) via webpacker
  * Redux (5.0.7)
- * Devise 4 (4.5.0)
+ * Devise 4 (4.6.2)
  * Boostrap 4 (4.0.0)
 
 # Architecture

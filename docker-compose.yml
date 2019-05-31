@@ -27,6 +27,8 @@ services:
       - /usr/local/bundle
   mailhog:
     image: mailhog/mailhog
+    networks:
+      - rrdb
     ports:
       - "1025:1025"
       - "8025:8025"
@@ -45,6 +47,8 @@ services:
     environment:
       - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
     image: zedtux/rails5-react
+    networks:
+      - rrdb
     ports:
       - "3035:3035"
     volumes_from:

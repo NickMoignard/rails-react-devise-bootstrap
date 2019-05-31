@@ -12,6 +12,7 @@ import { Provider } from 'react-redux'
 import $ from 'jquery'
 import 'popper.js/dist/popper.js'
 import 'bootstrap/dist/js/bootstrap'
+import '../stylesheets/application.sass'
 
 import App from '../views/App'
 import { store } from '../stores'
