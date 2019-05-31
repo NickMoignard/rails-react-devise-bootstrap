@@ -47,7 +47,7 @@ Run your tests and if all is fine, merge it to `master` 🎉
 
 Here is the project stack :
 
- * Rails 5 (5.2.1)
+ * Rails 5 (5.2.3)
  * React 16 (16.2.0) via webpacker
  * Redux (5.0.7)
  * Devise 4 (4.5.0)
