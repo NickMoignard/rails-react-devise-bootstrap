@@ -21,7 +21,8 @@ Fork it, rename it, build your app. 💪
   - Find and replace `rails5-react-devise-bootstrap` without your app name in dash-case
 5. Use your local Ruby, Bundler and Yarn or the Dockerfile in order to prepare
    your development environment
-6. Start the web server and go to http://localhost:3000/
+6. Migrate the database: `bundle exec rails db:migrate`
+7. Start the web server and go to http://localhost:3000/
 
 ## Why should I fork it ?
 
