@@ -1,12 +1,12 @@
-import { alertConstants } from './constants'
+import alertConstants from './constants'
 
-import { Utils } from '../helpers/Utils'
+import Utils from '../helpers/Utils'
 
 const initialState = {
   messages: []
 }
 
-export function alert(state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case alertConstants.SUCCESS:
       return {

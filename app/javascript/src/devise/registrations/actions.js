@@ -1,14 +1,15 @@
-import { alertActions } from '../../alert/actions'
-import { deviseConstants } from '../constants'
-import { history } from '../../helpers/History'
-import { registrationService } from './services'
+import alertActions from '../../alerts/actions'
+import deviseConstants from '../constants'
+import history from '../../helpers/History'
+import registrationService from './services'
 
 const register = (user) => {
   const request = (user) => ({ type: deviseConstants.REGISTER_REQUEST, user })
   const success = (user) => ({ type: deviseConstants.REGISTER_SUCCESS, user })
-  const failure = (error) => {
-    return { type: deviseConstants.REGISTER_FAILURE, errors: error }
-  }
+  const failure = (error) => ({
+    errors: error,
+    type: deviseConstants.REGISTER_FAILURE
+  })
 
   return dispatch => {
     dispatch(request(user))
@@ -26,6 +27,6 @@ const register = (user) => {
   }
 }
 
-export const registrationActions = {
+export default {
   register
 }

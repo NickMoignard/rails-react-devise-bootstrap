@@ -1,7 +1,7 @@
-import { alertActions } from '../../alert/actions'
-import { deviseConstants } from '../constants'
-import { history } from '../../helpers/History'
-import { confirmationService } from './service'
+import alertActions from '../../alerts/actions'
+import deviseConstants from '../constants'
+import history from '../../helpers/History'
+import confirmationService from './service'
 
 const confirm = (token) => {
   const request = (user) => {
@@ -59,7 +59,7 @@ const resendConfirmation = (user) => {
   }
 }
 
-export const confirmationActions = {
+export default {
   confirm,
   resendConfirmation
 }

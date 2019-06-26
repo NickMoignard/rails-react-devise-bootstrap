@@ -1,11 +1,11 @@
-import { deviseConstants } from '../constants'
+import deviseConstants from '../constants'
 
 const initialState = {
   loggingIn: false,
   loggedIn: false
 }
 
-export function authentication(state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case deviseConstants.LOGIN_REQUEST:
       return {

@@ -1,7 +1,7 @@
-import { ApiUtils } from '../../helpers/ApiUtils'
+import ApiUtils from '../../helpers/ApiUtils'
 
 const confirm = (token) => {
-  return fetch('/api/users/confirmation?confirmation_token=' + token, {
+  return fetch(`/api/users/confirmation?confirmation_token=${token}`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -25,7 +25,7 @@ const resendConfirmation = (user) => {
   .then(response => response.json())
 }
 
-export const confirmationService = {
+export default {
   confirm,
   resendConfirmation
 }

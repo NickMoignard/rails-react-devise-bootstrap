@@ -1,7 +1,7 @@
-import { alertActions } from '../../alert/actions'
-import { deviseConstants } from '../constants'
-import { history } from '../../helpers/History'
-import { sessionService } from './services'
+import alertActions from '../../alerts/actions'
+import deviseConstants from '../constants'
+import history from '../../helpers/History'
+import sessionService from './services'
 
 const login = (email, password) => {
   const request = user => {
@@ -37,7 +37,7 @@ const logout = () => {
   return { type: deviseConstants.LOGOUT }
 }
 
-export const sessionActions = {
+export default {
   login,
   logout
 }

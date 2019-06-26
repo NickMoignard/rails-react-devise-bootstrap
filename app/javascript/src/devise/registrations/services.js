@@ -1,4 +1,4 @@
-import { ApiUtils } from '../../helpers/ApiUtils'
+import ApiUtils from '../../helpers/ApiUtils'
 
 const register = (user) => {
   return fetch('/api/users', {
@@ -13,6 +13,6 @@ const register = (user) => {
   .then(response => response.json())
 }
 
-export const registrationService = {
+export default {
   register
 }

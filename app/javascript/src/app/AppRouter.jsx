@@ -1,7 +1,8 @@
 /*
 ** Application Router
 *
-*  You can read more about React router here : https://reacttraining.com/react-router/web/guides/philosophy
+*  You can read more about React router here:
+*  https://reacttraining.com/react-router/web/guides/philosophy
 */
 import React from 'react'
 import { connect } from 'react-redux'
@@ -12,7 +13,7 @@ import {
 } from 'react-router-dom'
 
 // App
-import { history } from '../helpers/History'
+import history from '../helpers/History'
 import FourOFour from './FourOFour'
 import HomePage from '../home/HomePage'
 import { PrivateRoute } from './PrivateRoute'

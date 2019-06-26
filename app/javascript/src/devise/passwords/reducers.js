@@ -1,6 +1,6 @@
-import { deviseConstants } from '../constants'
+import deviseConstants from '../constants'
 
-export function password(state = {}, action) {
+export default (state = {}, action) => {
   switch (action.type) {
     case deviseConstants.PASSWORD_RESET_REQUEST:
       return { reseting: true }

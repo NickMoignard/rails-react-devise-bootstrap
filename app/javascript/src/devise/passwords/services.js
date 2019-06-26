@@ -1,5 +1,5 @@
-import { ApiUtils } from '../../helpers/ApiUtils'
-import { FormCsrf } from '../../helpers/FormCsrf'
+import ApiUtils from '../../helpers/ApiUtils'
+import FormCsrf from '../../helpers/FormCsrf'
 
 const changePassword = (user) => {
   const token = FormCsrf.csrfToken()
@@ -38,7 +38,7 @@ const sendResetPasswordInstructions = (email) => {
   .then(response => response.json())
 }
 
-export const passwordService = {
+export default {
   changePassword,
   sendResetPasswordInstructions
 }

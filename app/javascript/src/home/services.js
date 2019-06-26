@@ -1,5 +1,5 @@
-import { ApiUtils } from '../helpers/ApiUtils'
-import { AuthHeader } from '../helpers/AuthHeader'
+import ApiUtils from '../helpers/ApiUtils'
+import AuthHeader from '../helpers/AuthHeader'
 
 function deleteUser(id) {
   return fetch('/api/users/' + id, {
@@ -19,7 +19,7 @@ function getAllUsers() {
   .then(response => response.json())
 }
 
-export const homeService = {
+export default {
   deleteUser,
   getAllUsers
 }

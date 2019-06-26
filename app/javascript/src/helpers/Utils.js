@@ -3,7 +3,7 @@
 *
 *  Some util functions
 */
-export const Utils = {
+export default {
   camelize,
   genId
 }

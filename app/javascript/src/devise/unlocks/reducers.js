@@ -1,12 +1,12 @@
-import { unlockConstants } from './constants'
+import deviseConstants from '../constants'
 
-export function unlock(state = {}, action) {
+export default (state = {}, action) => {
   switch (action.type) {
-    case unlockConstants.UNCLOCK_REQUEST:
+    case deviseConstants.UNCLOCK_REQUEST:
       return { unlocking: true }
-    case unlockConstants.UNCLOCK_SUCCESS:
+    case deviseConstants.UNCLOCK_SUCCESS:
       return {}
-    case unlockConstants.UNCLOCK_FAILURE:
+    case deviseConstants.UNCLOCK_FAILURE:
       return { errors: action.errors }
     default:
       return state

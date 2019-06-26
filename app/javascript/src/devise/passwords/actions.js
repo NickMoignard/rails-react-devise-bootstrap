@@ -1,7 +1,7 @@
-import { alertActions } from '../../alert/actions'
-import { deviseConstants } from '../constants'
-import { history } from '../../helpers/History'
-import { passwordService } from './services'
+import alertActions from '../../alerts/actions'
+import deviseConstants from '../constants'
+import history from '../../helpers/History'
+import passwordService from './services'
 
 const changePassword = (user) => {
   const request = (user) => {
@@ -59,7 +59,7 @@ const sendPasswordInstructions = (email) => {
   }
 }
 
-export const passwordActions = {
+export default {
   changePassword,
   sendPasswordInstructions
 }

@@ -1,17 +1,17 @@
-import { alertActions } from '../../alert/actions'
-import { history } from '../../helpers/History'
-import { unlockConstants } from './constants'
-import { unlockService } from './service'
+import alertActions from '../../alerts/actions'
+import history from '../../helpers/History'
+import deviseConstants from '../constants'
+import unlockService from './service'
 
 const resendUnlock = (user) => {
   const request = (user) => {
-    return { type: unlockConstants.UNLOCK_RESEND_REQUEST, user }
+    return { type: deviseConstants.UNLOCK_RESEND_REQUEST, user }
   }
   const success = (user) => {
-    return { type: unlockConstants.UNLOCK_RESEND_SUCCESS, user }
+    return { type: deviseConstants.UNLOCK_RESEND_SUCCESS, user }
   }
   const failure = (error) => {
-    return { type: unlockConstants.UNLOCK_RESEND_FAILURE, errors: error.errors }
+    return { type: deviseConstants.UNLOCK_RESEND_FAILURE, errors: error.errors }
   }
 
   return dispatch => {
@@ -31,9 +31,9 @@ const resendUnlock = (user) => {
 }
 
 const unlock = (token) => {
-  const request = (user) => ({ type: unlockConstants.UNCLOCK_REQUEST, user })
-  const success = (user) => ({ type: unlockConstants.UNCLOCK_SUCCESS, user })
-  const failure = (error) => ({ type: unlockConstants.UNCLOCK_FAILURE, error })
+  const request = (user) => ({ type: deviseConstants.UNCLOCK_REQUEST, user })
+  const success = (user) => ({ type: deviseConstants.UNCLOCK_SUCCESS, user })
+  const failure = (error) => ({ type: deviseConstants.UNCLOCK_FAILURE, error })
 
   return dispatch => {
     dispatch(request({ token }))
@@ -54,7 +54,7 @@ const unlock = (token) => {
   }
 }
 
-export const unlockActions = {
+export default {
   resendUnlock,
   unlock
 }

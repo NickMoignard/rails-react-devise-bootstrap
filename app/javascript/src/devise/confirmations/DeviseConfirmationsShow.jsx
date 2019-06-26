@@ -1,12 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   Col,
   Row
 } from 'reactstrap'
 
-import { confirmationActions } from './actions'
+import confirmationActions from './actions'
 
 class DeviseConfirmationsShow extends React.Component {
   constructor(props) {

@@ -2,25 +2,20 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
-  Button,
   Col,
-  FormGroup,
-  Label,
   Row
 } from 'reactstrap'
 
-import { sessionActions } from './actions'
+import passwordActions from './actions'
 
-class DeviseSessionsNew extends React.Component {
+class DevisePasswordsNew extends React.Component {
   constructor(props) {
     super(props)
 
-    // reset login status
-    this.props.dispatch(sessionActions.logout())
-
     this.state = {
-      email: '',
-      password: '',
+      user: {
+        email: ''
+      },
       submitted: false
     }
 
@@ -30,8 +25,12 @@ class DeviseSessionsNew extends React.Component {
 
   handleChange(event) {
     const { name, value } = event.target
+    const { user } = this.state
     this.setState({
-      [name]: value
+      user: {
+        ...user,
+        [name]: value
+      }
     })
   }
 
@@ -39,42 +38,38 @@ class DeviseSessionsNew extends React.Component {
     event.preventDefault()
 
     this.setState({ submitted: true })
-    const { email, password } = this.state
-    if (email && password) {
-      this.props.dispatch(sessionActions.login(email, password))
+    const { user } = this.state
+
+    if (user.email) {
+      this.props.dispatch(passwordActions.sendPasswordInstructions(user.email))
     }
   }
 
   render() {
-    const { loggingIn } = this.props
-    const { email, password, submitted } = this.state
+    const { sendingPasswordInstructions, errors } = this.props
+    const { user, submitted } = this.state
     return (
       <Row>
-        <Col md={{ size: 6, offset: 3 }}>
-          <h2>Login</h2>
+        <Col md={{ size: 6, offset: 3}}>
+          <h2>Forgot your password?</h2>
           <form name="form" onSubmit={this.handleSubmit}>
-            <div className={'form-group' + (submitted && !email ? ' has-error' : '')}>
-              <Label for="email">Email</Label>
-              <input type="email" className="form-control" id="email" name="email" value={email} onChange={this.handleChange} />
-              {submitted && !email &&
+            <div className={'form-group' + (submitted && (!user.email || (errors && errors.email)) ? ' has-error' : '')}>
+              <label htmlFor="user_email">Email</label>
+              <input type="text" className="form-control" name="email" id="user_email" value={user.email} onChange={this.handleChange} />
+              {submitted && !user.email &&
                 <div className="help-block">Email is required</div>
               }
-            </div>
-            <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-              <Label for="password">Password</Label>
-              <input type="password" className="form-control" id="password" name="password" value={password} onChange={this.handleChange} />
-              {submitted && !password &&
-                <div className="help-block">Password is required</div>
+              {submitted && errors && errors.email &&
+                <div className="help-block">{errors.email}</div>
               }
             </div>
-            <FormGroup>
-              <Button color="primary">Login</Button>
-              {loggingIn &&
+            <div className="form-group">
+              <button className="btn btn-primary">Send me reset password instructions</button>
+              {sendingPasswordInstructions &&
                 <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
               }
-              <Link to="/users/sign_up" className="btn btn-link">Register</Link>
-              <Link to="/users/password/new" className="btn btn-link">Forgot your password?</Link>
-            </FormGroup>
+              <Link to="/users/sign_in" className="btn btn-link">Cancel</Link>
+            </div>
           </form>
         </Col>
       </Row>
@@ -83,10 +78,11 @@ class DeviseSessionsNew extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { loggingIn } = state.authentication
+  const { sendingPasswordInstructions, errors } = state.registration
   return {
-    loggingIn
+    sendingPasswordInstructions,
+    errors
   }
 }
 
-export default connect(mapStateToProps)(DeviseSessionsNew)
+export default connect(mapStateToProps)(DevisePasswordsNew)

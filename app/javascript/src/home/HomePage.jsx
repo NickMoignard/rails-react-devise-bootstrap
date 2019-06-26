@@ -13,7 +13,7 @@ import {
   Row
 } from 'reactstrap'
 
-import { homeActions } from './actions'
+import homeActions from './actions'
 
 class HomePage extends React.Component {
   constructor(props) {

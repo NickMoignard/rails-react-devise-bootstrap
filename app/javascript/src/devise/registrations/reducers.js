@@ -1,6 +1,6 @@
-import { deviseConstants } from '../constants'
+import deviseConstants from '../constants'
 
-export function registration(state = {}, action) {
+export default (state = {}, action) => {
   switch (action.type) {
     case deviseConstants.REGISTER_REQUEST:
       return { registering: true }

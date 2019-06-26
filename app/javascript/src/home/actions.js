@@ -1,6 +1,6 @@
-import { alertActions } from '../alert/actions'
-import { homeConstants } from './constants'
-import { homeService } from './services'
+import alertActions from '../alerts/actions'
+import homeConstants from './constants'
+import homeService from './services'
 
 const deleteUser = (id) => {
   const request = (id) => ({ type: homeConstants.DELETE_USER_REQUEST, id })
@@ -43,7 +43,7 @@ const getAll = () => {
   }
 }
 
-export const homeActions = {
+export default {
   deleteUser,
   getAll
 }

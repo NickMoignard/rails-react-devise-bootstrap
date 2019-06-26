@@ -1,4 +1,4 @@
-import { homeConstants } from './constants'
+import homeConstants from './constants'
 
 const initialState = {
   deletingUser: false,
@@ -6,7 +6,7 @@ const initialState = {
   items: []
 }
 
-export function users(state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case homeConstants.DELETE_USER_REQUEST:
       return {

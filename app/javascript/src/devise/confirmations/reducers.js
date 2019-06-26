@@ -1,6 +1,6 @@
-import { deviseConstants } from '../constants'
+import deviseConstants from '../constants'
 
-export function confirmation(state = {}, action) {
+export const confirmation = (state = {}, action) => {
   switch (action.type) {
     case deviseConstants.CONFIRMATION_REQUEST:
       return { confirming: true }
@@ -13,7 +13,7 @@ export function confirmation(state = {}, action) {
   }
 }
 
-export function resendConfirmation(state = {}, action) {
+export const resendConfirmation = (state = {}, action) => {
   switch (action.type) {
     case deviseConstants.CONFIRMATION_RESEND_REQUEST:
       return {}

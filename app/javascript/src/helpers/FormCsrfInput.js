@@ -5,17 +5,15 @@
 */
 import React from 'react'
 
-import { FormCsrf } from './FormCsrf'
+import FormCsrf from './FormCsrf'
 
-export class FormCsrfInput extends React.Component {
-  render() {
-    return (
-      <input
-        type="hidden"
-        name="authenticity_token"
-        value={FormCsrf.csrfToken()}
-        readOnly={true}
-      />
-    )
-  }
-}
+const FormCsrfInput = () => (
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value={FormCsrf.csrfToken()}
+    readOnly={true}
+  />
+)
+
+export default FormCsrfInput

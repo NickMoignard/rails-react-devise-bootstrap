@@ -1,4 +1,4 @@
-import { ApiUtils } from '../../helpers/ApiUtils'
+import ApiUtils from '../../helpers/ApiUtils'
 
 const login = (email, password) => {
   return fetch('/api/users/sign_in', {
@@ -18,7 +18,7 @@ const logout = () => {
   localStorage.removeItem('user')
 }
 
-export const sessionService = {
+export default {
   login,
   logout
 }

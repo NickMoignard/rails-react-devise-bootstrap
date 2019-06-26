@@ -6,7 +6,7 @@ import {
   Row
 } from 'reactstrap'
 
-import { unlockActions } from './actions'
+import unlockActions from './actions'
 
 class DeviseUnlocksShow extends React.Component {
   constructor(props) {

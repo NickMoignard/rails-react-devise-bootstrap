@@ -1,5 +1,5 @@
-import { ApiUtils } from '../../helpers/ApiUtils'
-import { FormCsrf } from '../../helpers/FormCsrf'
+import ApiUtils from '../../helpers/ApiUtils'
+import FormCsrf from '../../helpers/FormCsrf'
 
 function resendUnlock(user) {
   return fetch('/api/users/unlock', {
@@ -32,7 +32,7 @@ function unlock(token) {
   .then(response => response.json())
 }
 
-export const unlockService = {
+export default {
   resendUnlock,
   unlock
 }

@@ -7,24 +7,22 @@ import {
   Row,
 } from 'reactstrap'
 
-import { alertActions } from '../alert/actions'
+import alertActions from '../alerts/actions'
 import AppRouter from './AppRouter'
-import FlashMessages from './FlashMessages'
-import { history } from '../helpers/History'
+import FlashMessages from '../alerts/FlashMessages'
+import history from '../helpers/History'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
 
     const { dispatch } = this.props
-    history.listen((location, action) => {
-      // clear alert on location change
-      dispatch(alertActions.clear())
-    })
+
+    // clear alert on location change
+    history.listen(() => dispatch(alertActions.clear()))
   }
 
   render() {
-    const basePath = '/' + location.pathname.split('/')[1]
     return (
       <Jumbotron>
         <Container>
