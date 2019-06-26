@@ -21,18 +21,19 @@ import { render } from 'react-dom'
 
 // Bootstrap
 import $ from 'jquery'
-import 'popper.js/dist/popper.js'
+import 'popper.js/dist/popper'
 import 'bootstrap/dist/js/bootstrap'
-import '../src/stylesheets/application.sass'
+import '../src/stylesheets/application.scss'
 
 import App from '../src/app/App'
 import { store } from '../src/config/stores'
 
 document.addEventListener('DOMContentLoaded', () => {
+  const rootElement = document.getElementById('app')
   render(
     <Provider store={store}>
       <App />
     </Provider>,
-    document.getElementById('app')
+    rootElement
   )
 })
