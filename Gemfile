@@ -6,7 +6,7 @@ ruby '2.5.0'
 gem 'bootsnap', '~> 1.4.4', require: false
 gem 'devise', '~> 4.6.2'
 gem 'jwt', '~> 2.2.1'
-gem 'puma', '~> 3.12.1'
+gem 'puma', '~> 4.0.0'
 gem 'rails', '~> 5.2.3'
 gem 'sass-rails', '~> 5.0'
 gem 'sqlite3', '~> 1.4.0'
