@@ -16,8 +16,8 @@
 // const imagePath = (name) => images(name, true)
 
 import React from 'react'
-import { render } from 'react-dom'
 import { Provider } from 'react-redux'
+import { render } from 'react-dom'
 
 // Bootstrap
 import $ from 'jquery'
