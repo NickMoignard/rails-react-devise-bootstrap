@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '>= 2.0.0'
 
+# rails-react-devise-bootstrap repository dependencies, please don't touch them.
 gem 'bootsnap', '~> 1.4.4', require: false
 gem 'devise', '~> 4.6.2'
 gem 'jwt', '~> 2.2.1'
@@ -12,6 +13,9 @@ gem 'sass-rails', '~> 5.0'
 gem 'sqlite3', '~> 1.4.0'
 gem 'uglifier', '>= 4.1.20'
 gem 'webpacker', '~> 4.0.7'
+
+# Add your dependencies after this lines.
+# This will avoids conflicts when merging the upstream project.
 
 group :development do
   gem 'active_record_migration_ui', '~> 0.1.1'
