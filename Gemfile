@@ -13,7 +13,7 @@ gem 'puma', '~> 4.1.0'
 gem 'rails', '~> 5.2.3'
 gem 'sass-rails', '~> 5.0'
 gem 'sqlite3', '~> 1.4.0'
-gem 'uglifier', '>= 4.1.20'
+gem 'uglifier', '>= 4.2.0'
 gem 'webpacker', '~> 4.0.7'
 
 # Add your dependencies after this lines.

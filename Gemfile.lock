@@ -221,7 +221,7 @@ GEM
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.20)
+    uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     warden (1.2.8)
       rack (>= 2.0.6)
@@ -258,7 +258,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3 (~> 1.4.0)
-  uglifier (>= 4.1.20)
+  uglifier (>= 4.2.0)
   webpacker (~> 4.0.7)
 
 RUBY VERSION
