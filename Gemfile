@@ -20,7 +20,7 @@ gem 'webpacker', '~> 4.0.7'
 # This will avoids conflicts when merging the upstream project.
 
 group :development do
-  gem 'active_record_migration_ui', '~> 0.1.1'
+  gem 'active_record_migration_ui', '~> 0.1.2'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
