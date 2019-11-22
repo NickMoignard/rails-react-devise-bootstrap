@@ -32,7 +32,7 @@ group :test do
   gem 'cucumber-rails', '~> 1.7.0', require: false
   gem 'database_cleaner', '~> 1.7.0'
   gem 'email_spec', '~> 2.2.0'
-  gem 'ffaker', '~> 2.11.0'
+  gem 'ffaker', '~> 2.12.0'
   gem 'rspec-expectations', '~> 3.8.4'
   gem 'selenium-webdriver', '~> 3.142.6'
 end
