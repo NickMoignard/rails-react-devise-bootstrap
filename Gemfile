@@ -10,7 +10,7 @@ gem 'bootsnap', '~> 1.4.5', require: false
 gem 'devise', '~> 4.6.2'
 gem 'jwt', '~> 2.2.1'
 gem 'puma', '~> 4.1.0'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2.4'
 gem 'sass-rails', '~> 5.1.0'
 gem 'sqlite3', '~> 1.4.0'
 gem 'uglifier', '>= 4.2.0'
