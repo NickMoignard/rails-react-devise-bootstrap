@@ -9,7 +9,7 @@
     "bootstrap": "^4.3.1",
     "caniuse-lite": "^1.0.30000697",
     "jquery": "^3.4.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "popper.js": "^1.15.0",
     "postcss-cssnext": "^3.1.0",
     "prop-types": "^15.7.2",
